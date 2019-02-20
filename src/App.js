@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 
+import { UserIsAuthenticated, UserIsNotAuthenticated } from './helpers/auth'
+
 import AppNavBar from './components/layout/AppNavBar'
 import Dashboard from './components/layout/Dashboard'
 import AddClient from './components/clients/AddClient'
@@ -20,11 +22,31 @@ class App extends Component {
             <AppNavBar />
             <div className="container">
               <Switch>
-                <Route exact path="/" component={Dashboard} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/client/add" component={AddClient} />
-                <Route exact path="/client/:id" component={ClientDetails} />
-                <Route exact path="/client/edit/:id" component={EditClient} />
+                <Route
+                  exact
+                  path="/"
+                  component={UserIsAuthenticated(Dashboard)}
+                />
+                <Route
+                  exact
+                  path="/login"
+                  component={UserIsNotAuthenticated(Login)}
+                />
+                <Route
+                  exact
+                  path="/client/add"
+                  component={UserIsAuthenticated(AddClient)}
+                />
+                <Route
+                  exact
+                  path="/client/:id"
+                  component={UserIsAuthenticated(ClientDetails)}
+                />
+                <Route
+                  exact
+                  path="/client/edit/:id"
+                  component={UserIsAuthenticated(EditClient)}
+                />
               </Switch>
             </div>
           </div>
