@@ -81,13 +81,13 @@ class AppNavBar extends Component {
             {!isAuthenticated ? (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link to="/login" class="nav-link">
+                  <Link to="/login" className="nav-link">
                     Login
                   </Link>
                 </li>
                 {allowRegistration ? (
                   <li className="nav-item">
-                    <Link to="/register" class="nav-link">
+                    <Link to="/register" className="nav-link">
                       Register
                     </Link>
                   </li>
