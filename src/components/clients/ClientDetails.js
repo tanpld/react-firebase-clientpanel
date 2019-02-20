@@ -42,6 +42,7 @@ class ClientDetails extends Component {
 
   render() {
     const { client } = this.props
+    const { disableBalanceOnEdit } = this.props.settings
     const { showBalanceUpdate, balanceUpdateAmount } = this.state
 
     let balanceForm = ''
@@ -56,12 +57,14 @@ class ClientDetails extends Component {
               placeholder="Add new balance"
               value={balanceUpdateAmount}
               onChange={this.onChange}
+              disabled={disableBalanceOnEdit}
             />
             <div className="input-group-append">
               <input
                 type="submit"
                 value="Update"
                 className="btn btn-outline-dark"
+                disabled={disableBalanceOnEdit}
               />
             </div>
           </div>
@@ -113,19 +116,21 @@ class ClientDetails extends Component {
                     >
                       Balance: ${parseFloat(client.balance).toFixed(2)}
                     </span>
-                    <small>
-                      <a
-                        href="#!"
-                        onClick={() =>
-                          this.setState({
-                            showBalanceUpdate: !this.state.showBalanceUpdate
-                          })
-                        }
-                      >
-                        {' '}
-                        <i className="fas fa-pencil-alt" />
-                      </a>
-                    </small>
+                    {!disableBalanceOnEdit ? (
+                      <small>
+                        <a
+                          href="#!"
+                          onClick={() =>
+                            this.setState({
+                              showBalanceUpdate: !this.state.showBalanceUpdate
+                            })
+                          }
+                        >
+                          {' '}
+                          <i className="fas fa-pencil-alt" />
+                        </a>
+                      </small>
+                    ) : null}
                   </h3>
                   {balanceForm}
                 </div>
@@ -159,6 +164,7 @@ export default compose(
     }
   ]),
   connect((state, props) => ({
-    client: state.firestore.ordered.client && state.firestore.ordered.client[0]
+    client: state.firestore.ordered.client && state.firestore.ordered.client[0],
+    settings: state.settings
   }))
 )(ClientDetails)

@@ -30,6 +30,7 @@ class AppNavBar extends Component {
   render() {
     const { isAuthenticated } = this.state
     const { auth } = this.props
+    const { allowRegistration } = this.props.settings
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-4">
         <div className="container">
@@ -75,6 +76,22 @@ class AppNavBar extends Component {
                     Logout
                   </a>
                 </li>
+              </ul>
+            ) : null}
+            {!isAuthenticated ? (
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to="/login" class="nav-link">
+                    Login
+                  </Link>
+                </li>
+                {allowRegistration ? (
+                  <li className="nav-item">
+                    <Link to="/register" class="nav-link">
+                      Register
+                    </Link>
+                  </li>
+                ) : null}
               </ul>
             ) : null}
           </div>
