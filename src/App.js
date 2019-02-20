@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import AppNavBar from './components/layout/AppNavBar'
+import Dashboard from './components/layout/Dashboard'
 
 class App extends Component {
   render() {
@@ -9,7 +10,11 @@ class App extends Component {
       <Router>
         <div className="App">
           <AppNavBar />
-          <div className="container">test</div>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+            </Switch>
+          </div>
         </div>
       </Router>
     )
